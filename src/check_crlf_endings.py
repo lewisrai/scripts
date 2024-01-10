@@ -4,14 +4,12 @@ from os.path import isfile as os_isfile, join as os_join
 
 SCAN_FOLDER = os_join("C:\\", "Code", "Projects")
 
-SKIP_FOLDERS = ["COMSC-Solo", "COMSC-Teams", "Scripts"]
-
 
 def check_crlf_ending(file_path):
     with open(file_path, "rb") as file:
         content = file.read()
 
-    if b"\r" in content:
+    if b"\r\n" in content:
         return True
 
     return False
@@ -19,9 +17,6 @@ def check_crlf_ending(file_path):
 
 def recursively_search_for_files(crlf_files, folder_path):
     for file_or_folder in os_listdir(folder_path):
-        if file_or_folder in SKIP_FOLDERS:
-            continue
-
         check_path = os_join(folder_path, file_or_folder)
 
         if os_isfile(check_path):
@@ -39,4 +34,4 @@ def check_crlf_endings():
     for file in crlf_files:
         print(file)
 
-    print(f'There are {len(crlf_files)} files containing CR character')
+    print(f'There are {len(crlf_files)} files containing CRLF characters')
