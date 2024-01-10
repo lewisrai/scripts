@@ -18,11 +18,11 @@ def check_crlf_ending(file_path):
 
 
 def recursively_search_for_files(crlf_files, folder_path):
-    for directory in os_listdir(folder_path):
-        if directory in SKIP_FOLDERS:
+    for file_or_folder in os_listdir(folder_path):
+        if file_or_folder in SKIP_FOLDERS:
             continue
 
-        check_path = os_join(folder_path, directory)
+        check_path = os_join(folder_path, file_or_folder)
 
         if os_isfile(check_path):
             if check_crlf_ending(check_path):

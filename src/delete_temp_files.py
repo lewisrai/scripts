@@ -8,8 +8,8 @@ DELETE_FOLDERS = ["__pycache__", "bin", "target"]
 
 
 def delete_folder(folder_path):
-    for dir in os_listdir(folder_path):
-        check_path = os_join(folder_path, dir)
+    for file_or_folder in os_listdir(folder_path):
+        check_path = os_join(folder_path, file_or_folder)
 
         if os_isfile(check_path):
             os_remove(check_path)
@@ -20,11 +20,11 @@ def delete_folder(folder_path):
 
 
 def recursively_search_for_folders(delete_folders, folder_path):
-    for directory in os_listdir(folder_path):
-        check_path = os_join(folder_path, directory)
+    for file_or_folder in os_listdir(folder_path):
+        check_path = os_join(folder_path, file_or_folder)
 
         if not os_isfile(check_path):
-            if dir in DELETE_FOLDERS:
+            if file_or_folder in DELETE_FOLDERS:
                 delete_folders.append(check_path)
             else:
                 recursively_search_for_folders(delete_folders, check_path)
