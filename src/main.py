@@ -15,19 +15,17 @@ def main():
         print("q - Quit")
         user_input = input("> ")
 
+        os_system("cls")
+
         match user_input:
             case "1":
-                os_system("cls")
                 check_crlf_endings()
                 input("> ")
             case "2":
-                os_system("cls")
                 delete_temp_files()
                 input("> ")
             case "q":
                 running = False
-
-        os_system("cls")
 
 
 if __name__ == "__main__":
