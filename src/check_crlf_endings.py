@@ -34,5 +34,7 @@ def check_crlf_endings():
     for file in crlf_files:
         print(file)
 
-    print(f'There are {len(crlf_files)} files containing CRLF characters')
-    print("These may be data files that by chance contains the binary representation of CRLF characters")
+    print(f"There are {len(crlf_files)} files containing CRLF characters")
+    print(
+        "These may be data files that by chance contains the binary representation of CRLF characters"
+    )

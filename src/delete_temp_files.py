@@ -42,11 +42,13 @@ def delete_temp_files():
     for folder_path in delete_folders:
         print(folder_path)
 
-    confirmation = input(f'Would you like to delete the following {len(delete_folders)} folders? (y / n) > ')
+    confirmation = input(
+        f"Would you like to delete the following {len(delete_folders)} folders? (y / n) > "
+    )
 
     if confirmation == "y":
         for folder_path in delete_folders:
             delete_folder(folder_path)
-        print(f'{len(delete_folders)} folders successfully deleted')
+        print(f"{len(delete_folders)} folders successfully deleted")
     else:
         print("User cancelled")
