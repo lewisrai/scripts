@@ -1,8 +1,7 @@
-from os import listdir as os_listdir
-from os.path import isfile as os_isfile, join as os_join
+import os
 
 
-SCAN_FOLDER = os_join("C:\\", "Code", "Projects")
+SCAN_FOLDER = os.path.join("C:\\", "Code", "Projects")
 
 
 def check_crlf_ending(file_path):
@@ -16,10 +15,10 @@ def check_crlf_ending(file_path):
 
 
 def recursively_search_for_files(crlf_files, folder_path):
-    for file_or_folder in os_listdir(folder_path):
-        check_path = os_join(folder_path, file_or_folder)
+    for file_or_folder in os.listdir(folder_path):
+        check_path = os.path.join(folder_path, file_or_folder)
 
-        if os_isfile(check_path):
+        if os.path.isfile(check_path):
             if check_crlf_ending(check_path):
                 crlf_files.append(check_path)
         else:
@@ -35,6 +34,4 @@ def check_crlf_endings():
         print(file)
 
     print(f"There are {len(crlf_files)} files containing CRLF characters")
-    print(
-        "These may be data files that by chance contains the binary representation of CRLF characters"
-    )
+    print("These may be data files that contains the CRLF characters as binary")

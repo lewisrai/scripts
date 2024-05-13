@@ -1,4 +1,4 @@
-from os import system as os_system
+import os
 
 from check_crlf_endings import check_crlf_endings
 from delete_temp_files import delete_temp_files
@@ -8,14 +8,14 @@ def main():
     running = True
 
     while running:
-        os_system("cls")
+        os.system("cls")
 
         print("1 - Check for CRLF endings")
         print("2 - Delete temp files")
         print("q - Quit")
         user_input = input("> ")
 
-        os_system("cls")
+        os.system("cls")
 
         match user_input:
             case "1":
