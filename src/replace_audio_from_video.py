@@ -38,27 +38,75 @@ def convert(input_video, input_audio, output):
 
 
 def main():
-    videos = os.listdir("video")
-    audios = os.listdir("audio")
+    print("INFO > Looking for files...")
 
-    videos = sorted(videos, key=lambda x: int(x.split(".")[1]))
-    audios = sorted(audios, key=lambda x: int(x.split(".")[1]))
+    video_source = []
+    audio_source = []
 
-    if len(videos) != len(audios):
-        print("Different number of videos")
+    try:
+        video_source = os.listdir("video")
+    except Exception:
+        print('ERROR > Could not find directory "video"')
+        print("INFO > EXITING")
         return
 
-    for i in range(0, len(videos)):
-        videos[i] = "video\\" + videos[i]
-        audios[i] = "audio\\" + audios[i]
+    try:
+        audio_source = os.listdir("audio")
+    except Exception:
+        print('ERROR > Could not find directory "audio"')
+        print("INFO > EXITING")
+        return
 
-        print(videos[i] + "  +  " + audios[i])
+    video_filenames = sorted(video_source, key=lambda x: int(x.split(".")[1]))
+    audio_filenames = sorted(audio_source, key=lambda x: int(x.split(".")[1]))
 
-    prefix = int(input("Enter season number: "))
-    prefix = f"S{prefix:02d}"
+    print(f'INFO > Found {len(video_filenames)} files in directory "video"!')
+    print(f'INFO > Found {len(audio_filenames)} files in directory "audio"!')
 
-    for i in range(0, len(videos)):
-        convert(videos[i], audios[i], f"{prefix}E{(i + 1):02d}.mp4")
+    if len(video_filenames) != len(audio_filenames):
+        print("ERROR > Different number of video and audio source files")
+        print("INFO > EXITING")
+        return
+
+    if len(video_filenames) == 0:
+        print("ERROR > No video and audio source files found")
+        print("INFO > EXITING")
+        return
+
+    print("")
+    print("INFO > Actions:")
+
+    video_locations = []
+    audio_locations = []
+
+    for i in range(0, len(video_filenames)):
+        video_locations.append("video\\" + video_filenames[i])
+        audio_locations.append("audio\\" + audio_filenames[i])
+
+        print(f"       video: {video_locations} + audio: {audio_locations}")
+
+    print("")
+    season = int(input("INPUT < Enter season number: "))
+
+    if season < 1 or season > 99:
+        print("ERROR > Bad season number")
+        print("INFO > EXITING")
+        return
+
+    season_prefix = f"S{season:02d}"
+
+    confirmation = input("INPUT < Start? ")
+
+    if confirmation != "y":
+        print("INFO > Cancelling operation")
+        return
+
+    for i in range(0, len(video_filenames)):
+        output_filename = f"{season_prefix}E{(i + 1):02d}.mp4"
+
+        convert(video_locations[i], audio_locations[i], output_filename)
+
+    print("INFO > Done!")
 
 
 if __name__ == "__main__":

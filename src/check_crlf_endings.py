@@ -1,9 +1,6 @@
 import os
 
 
-SCAN_FOLDER = os.path.join("C:\\", "Code", "Projects")
-
-
 def check_crlf_ending(file_path):
     with open(file_path, "rb") as file:
         content = file.read()
@@ -20,18 +17,10 @@ def recursively_search_for_files(crlf_files, folder_path):
 
         if os.path.isfile(check_path):
             if check_crlf_ending(check_path):
-                crlf_files.append(check_path)
+                print(check_path)
         else:
             recursively_search_for_files(crlf_files, check_path)
 
 
-def check_crlf_endings():
-    crlf_files = []
-
-    recursively_search_for_files(crlf_files, SCAN_FOLDER)
-
-    for file in crlf_files:
-        print(file)
-
-    print(f"There are {len(crlf_files)} files containing CRLF characters")
-    print("These may be data files that contains the CRLF characters as binary")
+def main():
+    recursively_search_for_files(os.path.join("C:\\", "Code", "Projects"))

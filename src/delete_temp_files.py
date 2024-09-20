@@ -1,9 +1,8 @@
 import os
 
 
-SCAN_FOLDER = os.path.join("C:\\", "Code", "Projects")
-
 DELETE_FOLDERS = ["__pycache__", "bin", "target"]
+OTHER_LOCATIONS = []
 
 
 def delete_folder(folder_path):
@@ -24,28 +23,19 @@ def recursively_search_for_folders(delete_folders, folder_path):
 
         if not os.path.isfile(check_path):
             if file_or_folder in DELETE_FOLDERS:
-                delete_folders.append(check_path)
+                confirmation = input(f'INPUT < Delete "{file_or_folder}"? ')
+
+                if confirmation == "y":
+                    delete_folder(check_path)
             else:
                 recursively_search_for_folders(delete_folders, check_path)
 
 
-def delete_temp_files():
-    delete_folders = []
+def main():
+    recursively_search_for_folders(os.path.join("C:\\", "Code", "Projects"))
 
-    recursively_search_for_folders(delete_folders, SCAN_FOLDER)
+    for folder_path in OTHER_LOCATIONS:
+        confirmation = input(f'INPUT < Delete "{folder_path}"? ')
 
-    if len(delete_folders) == 0:
-        print("No folders found")
-        return
-
-    for folder_path in delete_folders:
-        print(folder_path)
-
-    confirmation = input(f"Delete the following {len(delete_folders)} folders? [y] > ")
-
-    if confirmation == "y":
-        for folder_path in delete_folders:
+        if confirmation == "y":
             delete_folder(folder_path)
-        print(f"{len(delete_folders)} folders successfully deleted")
-    else:
-        print("User cancelled")
