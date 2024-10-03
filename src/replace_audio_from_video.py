@@ -37,6 +37,15 @@ def convert(input_video, input_audio, output):
     )
 
 
+def parse_filename(name):
+    if name.startswith("EP"):
+        return int(name.split(".")[1])
+    elif name.startswith("("):
+        return int(name.split(".")[-2].split("-")[-1])
+
+    return -1
+
+
 def main():
     print("INFO > Looking for files...")
 
@@ -57,8 +66,8 @@ def main():
         print("INFO > EXITING")
         return
 
-    video_filenames = sorted(video_source, key=lambda x: int(x.split(".")[1]))
-    audio_filenames = sorted(audio_source, key=lambda x: int(x.split(".")[1]))
+    video_filenames = sorted(video_source, key=parse_filename)
+    audio_filenames = sorted(audio_source, key=parse_filename)
 
     print(f'INFO > Found {len(video_filenames)} files in directory "video"!')
     print(f'INFO > Found {len(audio_filenames)} files in directory "audio"!')
@@ -83,7 +92,7 @@ def main():
         video_locations.append("video\\" + video_filenames[i])
         audio_locations.append("audio\\" + audio_filenames[i])
 
-        print(f"       video: {video_locations} + audio: {audio_locations}")
+        print(f"    {video_locations[i]} + {audio_locations[i]}")
 
     print("")
     season = int(input("INPUT < Enter season number: "))
@@ -106,6 +115,9 @@ def main():
 
         convert(video_locations[i], audio_locations[i], output_filename)
 
+    os.remove("temp.aac")
+
+    print("")
     print("INFO > Done!")
 
 

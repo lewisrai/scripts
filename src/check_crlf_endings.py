@@ -1,6 +1,9 @@
 import os
 
 
+PROJECT_FOLDER = "C:\\Code\\Projects"
+
+
 def check_crlf_ending(file_path):
     with open(file_path, "rb") as file:
         content = file.read()
@@ -11,7 +14,7 @@ def check_crlf_ending(file_path):
     return False
 
 
-def recursively_search_for_files(crlf_files, folder_path):
+def recursively_search_for_files(folder_path):
     for file_or_folder in os.listdir(folder_path):
         check_path = os.path.join(folder_path, file_or_folder)
 
@@ -19,8 +22,12 @@ def recursively_search_for_files(crlf_files, folder_path):
             if check_crlf_ending(check_path):
                 print(check_path)
         else:
-            recursively_search_for_files(crlf_files, check_path)
+            recursively_search_for_files(check_path)
 
 
 def main():
-    recursively_search_for_files(os.path.join("C:\\", "Code", "Projects"))
+    recursively_search_for_files(PROJECT_FOLDER)
+
+
+if __name__ == "__main__":
+    main()

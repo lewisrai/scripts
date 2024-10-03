@@ -1,41 +1,41 @@
 import os
+import shutil
 
 
+PROJECT_FOLDER = "C:\\Code\\Projects"
 DELETE_FOLDERS = ["__pycache__", "bin", "target"]
-OTHER_LOCATIONS = []
+OTHER_LOCATIONS = ["C:\\Users\\raiwin\\AppData\\Local\\D3DSCache"]
 
 
-def delete_folder(folder_path):
-    for file_or_folder in os.listdir(folder_path):
-        check_path = os.path.join(folder_path, file_or_folder)
+def delete_folder(path):
+    confirmation = input(f'INPUT < Delete "{path}"? ')
 
-        if os.path.isfile(check_path):
-            os.remove(check_path)
-        else:
-            delete_folder(check_path)
+    if confirmation != "y":
+        return
 
-    os.rmdir(folder_path)
+    try:
+        shutil.rmtree(path)
+    except OSError as e:
+        print(f"Error deleting folder {path} > {e}")
 
 
-def recursively_search_for_folders(delete_folders, folder_path):
+def recursively_search_for_folders(folder_path):
     for file_or_folder in os.listdir(folder_path):
         check_path = os.path.join(folder_path, file_or_folder)
 
         if not os.path.isfile(check_path):
             if file_or_folder in DELETE_FOLDERS:
-                confirmation = input(f'INPUT < Delete "{file_or_folder}"? ')
-
-                if confirmation == "y":
-                    delete_folder(check_path)
+                delete_folder(file_or_folder)
             else:
-                recursively_search_for_folders(delete_folders, check_path)
+                recursively_search_for_folders(check_path)
 
 
 def main():
-    recursively_search_for_folders(os.path.join("C:\\", "Code", "Projects"))
+    recursively_search_for_folders(PROJECT_FOLDER)
 
     for folder_path in OTHER_LOCATIONS:
-        confirmation = input(f'INPUT < Delete "{folder_path}"? ')
+        delete_folder(folder_path)
 
-        if confirmation == "y":
-            delete_folder(folder_path)
+
+if __name__ == "__main__":
+    main()
