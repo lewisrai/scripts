@@ -4,7 +4,10 @@ import shutil
 
 PROJECT_FOLDER = "C:\\Code\\Projects"
 DELETE_FOLDERS = ["__pycache__", "bin", "target"]
-OTHER_LOCATIONS = ["C:\\Users\\raiwin\\AppData\\Local\\D3DSCache"]
+OTHER_LOCATIONS = [
+    "C:\\Users\\raiwin\\AppData\\Local\\D3DSCache",
+    "C:\\Users\\raiwin\\AppData\\Local\\Jedi",
+]
 
 
 def delete_folder(path):
