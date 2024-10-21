@@ -43,6 +43,7 @@ def parse_filename(name):
     elif name.startswith("("):
         return int(name.split(".")[-2].split("-")[-1])
 
+    print("WARNING > Couldn't parse filename for episode number > " + name)
     return -1
 
 
@@ -56,14 +57,14 @@ def main():
         video_source = os.listdir("video")
     except Exception:
         print('ERROR > Could not find directory "video"')
-        print("INFO > EXITING")
+        print("INFO > Exiting")
         return
 
     try:
         audio_source = os.listdir("audio")
     except Exception:
         print('ERROR > Could not find directory "audio"')
-        print("INFO > EXITING")
+        print("INFO > Exiting")
         return
 
     video_filenames = sorted(video_source, key=parse_filename)
@@ -74,12 +75,12 @@ def main():
 
     if len(video_filenames) != len(audio_filenames):
         print("ERROR > Different number of video and audio source files")
-        print("INFO > EXITING")
+        print("INFO > Exiting")
         return
 
     if len(video_filenames) == 0:
         print("ERROR > No video and audio source files found")
-        print("INFO > EXITING")
+        print("INFO > Exiting")
         return
 
     print("")
@@ -95,11 +96,16 @@ def main():
         print(f"    {video_locations[i]} + {audio_locations[i]}")
 
     print("")
-    season = int(input("INPUT < Enter season number: "))
+    try:
+        season = int(input("INPUT < Enter season number: "))
+    except ValueError:
+        print("ERROR > Expected integer")
+        print("INFO > Exiting")
+        return
 
     if season < 1 or season > 99:
         print("ERROR > Bad season number")
-        print("INFO > EXITING")
+        print("INFO > Exiting")
         return
 
     season_prefix = f"S{season:02d}"
