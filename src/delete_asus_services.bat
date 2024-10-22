@@ -1,0 +1,12 @@
+net stop AsusAppService
+sc delete AsusAppService
+net stop ASUSOptimization
+sc delete ASUSOptimization
+net stop ASUSSoftwareManager
+sc delete ASUSSoftwareManager
+net stop ASUSSwitch
+sc delete ASUSSwitch
+net stop ASUSSystemAnalysis
+sc delete ASUSSystemAnalysis
+net stop ASUSSystemDiagnosis
+sc delete ASUSSystemDiagnosis
