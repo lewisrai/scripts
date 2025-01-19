@@ -5,8 +5,13 @@ import shutil
 PROJECT_FOLDER = "C:\\Code\\Projects"
 DELETE_FOLDERS = ["__pycache__", "bin", "target"]
 OTHER_LOCATIONS = [
+    "C:\\Users\\raiwin\\AppData\\Local\\ASUS",
     "C:\\Users\\raiwin\\AppData\\Local\\D3DSCache",
     "C:\\Users\\raiwin\\AppData\\Local\\Jedi",
+    "C:\\Users\\raiwin\\AppData\\Local\\pip",
+    "C:\\Users\\raiwin\\AppData\\Local\\PeerDistRepub",
+    "C:\\Users\\raiwin\\AppData\\Local\\Temp",
+    "C:\\Users\\raiwin\\AppData\\Local\\VirtualStore",
 ]
 
 
@@ -18,8 +23,8 @@ def delete_folder(path):
 
     try:
         shutil.rmtree(path)
-    except OSError as e:
-        print(f"Error deleting folder {path} > {e}")
+    except OSError as error:
+        print(f"Error deleting folder {path} > {error}")
 
 
 def recursively_search_for_folders(folder_path):

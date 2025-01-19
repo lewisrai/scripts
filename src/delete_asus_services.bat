@@ -2,6 +2,8 @@ net stop AsusAppService
 sc delete AsusAppService
 net stop ASUSOptimization
 sc delete ASUSOptimization
+net stop AsusPTPService
+sc delete AsusPTPService
 net stop ASUSSoftwareManager
 sc delete ASUSSoftwareManager
 net stop ASUSSwitch
